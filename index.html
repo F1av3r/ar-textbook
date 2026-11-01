@@ -60,6 +60,11 @@
 
   <!-- AR-сцена: маркеры берутся из файла targets.mind, стандартная рамка «поиск маркера» выключена -->
   <a-scene mindar-image="imageTargetSrc: targets.mind; uiScanning: no" xr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <!-- Общие настройки всех подписей: шрифт лежит рядом со страницей в папке fonts, цвет чёрный, по центру -->
+    <a-assets>
+      <a-mixin id="label" text="font: fonts/Roboto-msdf.json; color: black; align: center"></a-mixin>
+    </a-assets>
+
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
     <!-- Подставка с объектами: стоит там, где последний найденный маркер, и остаётся, когда маркер пропал -->
@@ -67,34 +72,34 @@
       <!-- Объект 1 (ЛР1): куб RGB, в вершинах шарики своих цветов с подписями -->
       <a-entity id="model1" visible="false" position="0 0 0.3" rotation="20 -30 0">
         <a-box width="0.4" height="0.4" depth="0.4" color="#888888" opacity="0.3"></a-box>
-        <a-sphere position="-0.2 -0.2 0.2" radius="0.04" color="#000000"><a-text value="K" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="0.2 -0.2 0.2" radius="0.04" color="#ff0000"><a-text value="R" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="-0.2 -0.2 -0.2" radius="0.04" color="#00ff00"><a-text value="G" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="-0.2 0.2 0.2" radius="0.04" color="#0000ff"><a-text value="B" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="0.2 -0.2 -0.2" radius="0.04" color="#ffff00"><a-text value="Y" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="0.2 0.2 0.2" radius="0.04" color="#ff00ff"><a-text value="M" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="-0.2 0.2 -0.2" radius="0.04" color="#00ffff"><a-text value="C" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
-        <a-sphere position="0.2 0.2 -0.2" radius="0.04" color="#ffffff"><a-text value="W" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
+        <a-sphere position="-0.2 -0.2 0.2" radius="0.04" color="#000000"><a-text mixin="label" value="K" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="0.2 -0.2 0.2" radius="0.04" color="#ff0000"><a-text mixin="label" value="R" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="-0.2 -0.2 -0.2" radius="0.04" color="#00ff00"><a-text mixin="label" value="G" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="-0.2 0.2 0.2" radius="0.04" color="#0000ff"><a-text mixin="label" value="B" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="0.2 -0.2 -0.2" radius="0.04" color="#ffff00"><a-text mixin="label" value="Y" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="0.2 0.2 0.2" radius="0.04" color="#ff00ff"><a-text mixin="label" value="M" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="-0.2 0.2 -0.2" radius="0.04" color="#00ffff"><a-text mixin="label" value="C" position="0 0.08 0" width="2.5"></a-text></a-sphere>
+        <a-sphere position="0.2 0.2 -0.2" radius="0.04" color="#ffffff"><a-text mixin="label" value="W" position="0 0.08 0" width="2.5"></a-text></a-sphere>
       </a-entity>
 
       <!-- Объект 2 (ЛР2): клетки 4×4 с номерами обхода (верхняя полоса голубая, нижняя оранжевая) -->
       <a-entity id="model2" visible="false">
-        <a-box position="-0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="1" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="4" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="5" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="8" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="2" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="3" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="6" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="7" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="16" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="13" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="12" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="9" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="15" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="-0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="14" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="11" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-        <a-box position="0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="10" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="1" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="4" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="5" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="8" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="2" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="3" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="6" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text mixin="label" value="7" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="16" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="13" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="12" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="9" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="15" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="-0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="14" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="11" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
+        <a-box position="0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text mixin="label" value="10" position="-0.05 0.05 0.021" width="2"></a-text></a-box>
 
         <!-- Линия обхода «змейкой»: вертикальные и горизонтальные (повёрнуты на 90°) палочки -->
         <a-cylinder position="-0.3 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
@@ -114,16 +119,16 @@
 
       <!-- Объект 3 (ЛР3): цепочка «текст → BWT → MTF → арифметический код» -->
       <a-entity id="model3" visible="false">
-        <a-box position="0 0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffd166"><a-text value="BANANA" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0 0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffd166"><a-text mixin="label" value="BANANA" position="0 0 0.031" width="2"></a-text></a-box>
         <a-cone position="0 0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-        <a-text value="BWT" position="0.06 0.24 0.1" color="black" width="1.5"></a-text>
-        <a-box position="0 0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#8ecae6"><a-text value="NNBAAA (4)" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-text mixin="label" value="BWT" position="0.15 0.24 0.1" width="1.5"></a-text>
+        <a-box position="0 0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#8ecae6"><a-text mixin="label" value="NNBAAA (4)" position="0 0 0.031" width="2"></a-text></a-box>
         <a-cone position="0 0 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-        <a-text value="MTF" position="0.06 0 0.1" color="black" width="1.5"></a-text>
-        <a-box position="0 -0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#b9fbc0"><a-text value="2 0 2 2 0 0" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-text mixin="label" value="MTF" position="0.15 0 0.1" width="1.5"></a-text>
+        <a-box position="0 -0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#b9fbc0"><a-text mixin="label" value="2 0 2 2 0 0" position="0 0 0.031" width="2"></a-text></a-box>
         <a-cone position="0 -0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-        <a-text value="ARITH" position="0.06 -0.24 0.1" color="black" width="1.5"></a-text>
-        <a-box position="0 -0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffadad"><a-text value="0,3" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-text mixin="label" value="ARITH" position="0.15 -0.24 0.1" width="1.5"></a-text>
+        <a-box position="0 -0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffadad"><a-text mixin="label" value="0,3" position="0 0 0.031" width="2"></a-text></a-box>
       </a-entity>
     </a-entity>
 
