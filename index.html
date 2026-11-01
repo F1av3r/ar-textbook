@@ -23,6 +23,11 @@
       border-radius: 10px;
       font: 16px Arial, sans-serif;
     }
+
+    /* Браузер не листает и не увеличивает страницу пальцами — жесты достаются нашему коду */
+    body {
+      touch-action: none;
+    }
   </style>
 </head>
 <body>
@@ -33,18 +38,21 @@
     Модель RGB можно представить кубом: оси — красный (R), зелёный (G) и синий (B).
     В вершинах: K — чёрный (0,0,0), W — белый (1,1,1), C, M, Y — голубой, пурпурный и жёлтый
     (смеси двух основных цветов). Диагональ от K к W — оттенки серого.
+    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
   </div>
   <div class="info" id="info2">
     <b>ЛР2. Обход плоскости</b><br>
     Массив 4×4 обходится полосами глубиной 2 с разворотом: внутри полосы столбцы идут
     «змейкой» (вниз, вверх, вниз…), а вторая полоса проходится справа налево.
     Числа — порядок обхода, красная линия — путь. Получается одномерный массив для сжатия.
+    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
   </div>
   <div class="info" id="info3">
     <b>ЛР3. BWT, MTF и арифметическое кодирование</b><br>
     BWT собирает одинаковые буквы вместе: BANANA → NNBAAA (строка 4).
     MTF заменяет буквы номерами в списке: NNBAAA → 2 0 2 2 0 0.
     Арифметическое кодирование записывает всю строку одним числом: 202200 → 0,3.
+    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
   </div>
 
   <!-- AR-сцена: маркеры берутся из файла targets.mind -->
@@ -53,7 +61,7 @@
 
     <!-- Маркер 1 (ЛР1): куб RGB, в вершинах шарики своих цветов с подписями -->
     <a-entity id="marker1" mindar-image-target="targetIndex: 0">
-      <a-entity position="0 0 0.3" rotation="20 -30 0">
+      <a-entity id="model1" position="0 0 0.3" rotation="20 -30 0">
         <a-box width="0.4" height="0.4" depth="0.4" color="#888888" opacity="0.3"></a-box>
         <a-sphere position="-0.2 -0.2 0.2" radius="0.04" color="#000000"><a-text value="K" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
         <a-sphere position="0.2 -0.2 0.2" radius="0.04" color="#ff0000"><a-text value="R" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
@@ -68,62 +76,110 @@
 
     <!-- Маркер 2 (ЛР2): клетки 4×4 с номерами обхода (верхняя полоса голубая, нижняя оранжевая) -->
     <a-entity id="marker2" mindar-image-target="targetIndex: 1">
-      <a-box position="-0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="1" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="4" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="5" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="8" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="2" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="3" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="6" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="7" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="16" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="13" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="12" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="9" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="15" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="-0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="14" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="11" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
-      <a-box position="0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="10" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+      <a-entity id="model2">
+        <a-box position="-0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="1" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="4" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="5" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="8" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="2" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="3" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.1 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="6" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.3 0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="7" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="16" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="13" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.1 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="12" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.3 -0.1 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="9" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="15" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="-0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="14" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.1 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="11" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
+        <a-box position="0.3 -0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#ffb703"><a-text value="10" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
 
-      <!-- Линия обхода «змейкой»: вертикальные и горизонтальные (повёрнуты на 90°) палочки -->
-      <a-cylinder position="-0.3 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="-0.2 0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="-0.1 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="0 0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="0.1 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="0.2 0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="0.3 0 0.1" height="0.6" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="0.2 -0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="0.1 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="0 -0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="-0.1 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
-      <a-cylinder position="-0.2 -0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
-      <a-cylinder position="-0.3 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <!-- Линия обхода «змейкой»: вертикальные и горизонтальные (повёрнуты на 90°) палочки -->
+        <a-cylinder position="-0.3 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="-0.2 0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="-0.1 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="0 0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="0.1 0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="0.2 0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="0.3 0 0.1" height="0.6" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="0.2 -0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="0.1 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="0 -0.1 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="-0.1 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+        <a-cylinder position="-0.2 -0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="-0.3 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
+      </a-entity>
     </a-entity>
 
     <!-- Маркер 3 (ЛР3): цепочка «текст → BWT → MTF → арифметический код» -->
     <a-entity id="marker3" mindar-image-target="targetIndex: 2">
-      <a-box position="0 0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffd166"><a-text value="BANANA" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
-      <a-cone position="0 0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-      <a-text value="BWT" position="0.06 0.24 0.1" color="black" width="1.5"></a-text>
-      <a-box position="0 0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#8ecae6"><a-text value="NNBAAA (4)" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
-      <a-cone position="0 0 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-      <a-text value="MTF" position="0.06 0 0.1" color="black" width="1.5"></a-text>
-      <a-box position="0 -0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#b9fbc0"><a-text value="2 0 2 2 0 0" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
-      <a-cone position="0 -0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
-      <a-text value="ARITH" position="0.06 -0.24 0.1" color="black" width="1.5"></a-text>
-      <a-box position="0 -0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffadad"><a-text value="0,3" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+      <a-entity id="model3">
+        <a-box position="0 0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffd166"><a-text value="BANANA" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-cone position="0 0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
+        <a-text value="BWT" position="0.06 0.24 0.1" color="black" width="1.5"></a-text>
+        <a-box position="0 0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#8ecae6"><a-text value="NNBAAA (4)" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-cone position="0 0 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
+        <a-text value="MTF" position="0.06 0 0.1" color="black" width="1.5"></a-text>
+        <a-box position="0 -0.12 0.1" width="0.6" height="0.14" depth="0.06" color="#b9fbc0"><a-text value="2 0 2 2 0 0" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+        <a-cone position="0 -0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
+        <a-text value="ARITH" position="0.06 -0.24 0.1" color="black" width="1.5"></a-text>
+        <a-box position="0 -0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffadad"><a-text value="0,3" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
+      </a-entity>
     </a-entity>
   </a-scene>
 
   <script>
-    // Маркер найден — показываем его панель, маркер потерян — прячем
+    // Переменные: какой объект сейчас на экране и где начался жест
+    let model = null;
+    let lastX, lastY, startDistance, startScale;
+
+    // Маркер найден — показываем его панель и запоминаем его объект, маркер потерян — прячем панель
     for (let i = 1; i <= 3; i++) {
       let marker = document.getElementById("marker" + i);
       let info = document.getElementById("info" + i);
-      marker.addEventListener("targetFound", function () { info.style.display = "block"; });
+      marker.addEventListener("targetFound", function () {
+        info.style.display = "block";
+        model = document.getElementById("model" + i);
+      });
       marker.addEventListener("targetLost", function () { info.style.display = "none"; });
     }
+
+    // Расстояние между двумя пальцами (по теореме Пифагора)
+    function fingersDistance(e) {
+      let dx = e.touches[0].clientX - e.touches[1].clientX;
+      let dy = e.touches[0].clientY - e.touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    // Палец поставили или убрали — запоминаем, откуда начинается жест
+    function rememberStart(e) {
+      if (model == null) return;
+      if (e.touches.length == 1) {
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+      }
+      if (e.touches.length == 2) {
+        startDistance = fingersDistance(e);
+        startScale = model.object3D.scale.x;
+      }
+    }
+    document.addEventListener("touchstart", rememberStart);
+    document.addEventListener("touchend", rememberStart);
+
+    // Пальцы двигаются: один палец переносит объект, два пальца меняют его размер
+    document.addEventListener("touchmove", function (e) {
+      if (model == null) return;
+      if (e.touches.length == 1) {
+        model.object3D.position.x += (e.touches[0].clientX - lastX) / 300;
+        model.object3D.position.y -= (e.touches[0].clientY - lastY) / 300;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+      }
+      if (e.touches.length == 2) {
+        let scale = startScale * fingersDistance(e) / startDistance;
+        model.object3D.scale.set(scale, scale, scale);
+      }
+    });
   </script>
 </body>
 </html>
