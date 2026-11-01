@@ -32,36 +32,40 @@
 </head>
 <body>
 
-  <!-- Панели с пояснениями, по одной на каждый маркер -->
+  <!-- Панели с пояснениями: подсказка при запуске и по одной на каждый маркер -->
+  <div class="info" id="info0" style="display: block">
+    Наведите камеру на маркер ЛР1, ЛР2 или ЛР3.
+  </div>
   <div class="info" id="info1">
     <b>ЛР1. Системы цвета</b><br>
     Модель RGB можно представить кубом: оси — красный (R), зелёный (G) и синий (B).
     В вершинах: K — чёрный (0,0,0), W — белый (1,1,1), C, M, Y — голубой, пурпурный и жёлтый
     (смеси двух основных цветов). Диагональ от K к W — оттенки серого.
-    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
+    <br><i>Один палец — сдвинуть объект, два пальца — изменить размер. Другой маркер — сменить объект.</i>
   </div>
   <div class="info" id="info2">
     <b>ЛР2. Обход плоскости</b><br>
     Массив 4×4 обходится полосами глубиной 2 с разворотом: внутри полосы столбцы идут
     «змейкой» (вниз, вверх, вниз…), а вторая полоса проходится справа налево.
     Числа — порядок обхода, красная линия — путь. Получается одномерный массив для сжатия.
-    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
+    <br><i>Один палец — сдвинуть объект, два пальца — изменить размер. Другой маркер — сменить объект.</i>
   </div>
   <div class="info" id="info3">
     <b>ЛР3. BWT, MTF и арифметическое кодирование</b><br>
     BWT собирает одинаковые буквы вместе: BANANA → NNBAAA (строка 4).
     MTF заменяет буквы номерами в списке: NNBAAA → 2 0 2 2 0 0.
     Арифметическое кодирование записывает всю строку одним числом: 202200 → 0,3.
-    <br><i>Один палец — сдвинуть объект, два пальца — увеличить или уменьшить.</i>
+    <br><i>Один палец — сдвинуть объект, два пальца — изменить размер. Другой маркер — сменить объект.</i>
   </div>
 
-  <!-- AR-сцена: маркеры берутся из файла targets.mind -->
-  <a-scene mindar-image="imageTargetSrc: targets.mind" xr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+  <!-- AR-сцена: маркеры берутся из файла targets.mind, стандартная рамка «поиск маркера» выключена -->
+  <a-scene mindar-image="imageTargetSrc: targets.mind; uiScanning: no" xr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- Маркер 1 (ЛР1): куб RGB, в вершинах шарики своих цветов с подписями -->
-    <a-entity id="marker1" mindar-image-target="targetIndex: 0">
-      <a-entity id="model1" position="0 0 0.3" rotation="20 -30 0">
+    <!-- Подставка с объектами: стоит там, где последний найденный маркер, и остаётся, когда маркер пропал -->
+    <a-entity id="holder">
+      <!-- Объект 1 (ЛР1): куб RGB, в вершинах шарики своих цветов с подписями -->
+      <a-entity id="model1" visible="false" position="0 0 0.3" rotation="20 -30 0">
         <a-box width="0.4" height="0.4" depth="0.4" color="#888888" opacity="0.3"></a-box>
         <a-sphere position="-0.2 -0.2 0.2" radius="0.04" color="#000000"><a-text value="K" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
         <a-sphere position="0.2 -0.2 0.2" radius="0.04" color="#ff0000"><a-text value="R" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
@@ -72,11 +76,9 @@
         <a-sphere position="-0.2 0.2 -0.2" radius="0.04" color="#00ffff"><a-text value="C" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
         <a-sphere position="0.2 0.2 -0.2" radius="0.04" color="#ffffff"><a-text value="W" position="0 0.08 0" align="center" color="black" width="2.5"></a-text></a-sphere>
       </a-entity>
-    </a-entity>
 
-    <!-- Маркер 2 (ЛР2): клетки 4×4 с номерами обхода (верхняя полоса голубая, нижняя оранжевая) -->
-    <a-entity id="marker2" mindar-image-target="targetIndex: 1">
-      <a-entity id="model2">
+      <!-- Объект 2 (ЛР2): клетки 4×4 с номерами обхода (верхняя полоса голубая, нижняя оранжевая) -->
+      <a-entity id="model2" visible="false">
         <a-box position="-0.3 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="1" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
         <a-box position="-0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="4" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
         <a-box position="0.1 0.3 0.05" width="0.18" height="0.18" depth="0.04" color="#8ecae6"><a-text value="5" position="-0.05 0.05 0.021" align="center" color="black" width="2"></a-text></a-box>
@@ -109,11 +111,9 @@
         <a-cylinder position="-0.2 -0.3 0.1" height="0.2" radius="0.012" color="red" rotation="0 0 90"></a-cylinder>
         <a-cylinder position="-0.3 -0.2 0.1" height="0.2" radius="0.012" color="red"></a-cylinder>
       </a-entity>
-    </a-entity>
 
-    <!-- Маркер 3 (ЛР3): цепочка «текст → BWT → MTF → арифметический код» -->
-    <a-entity id="marker3" mindar-image-target="targetIndex: 2">
-      <a-entity id="model3">
+      <!-- Объект 3 (ЛР3): цепочка «текст → BWT → MTF → арифметический код» -->
+      <a-entity id="model3" visible="false">
         <a-box position="0 0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffd166"><a-text value="BANANA" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
         <a-cone position="0 0.24 0.1" radius-bottom="0.03" height="0.06" color="black" rotation="0 0 180"></a-cone>
         <a-text value="BWT" position="0.06 0.24 0.1" color="black" width="1.5"></a-text>
@@ -126,23 +126,46 @@
         <a-box position="0 -0.36 0.1" width="0.6" height="0.14" depth="0.06" color="#ffadad"><a-text value="0,3" position="0 0 0.031" align="center" color="black" width="2"></a-text></a-box>
       </a-entity>
     </a-entity>
+
+    <!-- Маркеры только распознают картинки (номер картинки в targets.mind) -->
+    <a-entity id="marker1" mindar-image-target="targetIndex: 0"></a-entity>
+    <a-entity id="marker2" mindar-image-target="targetIndex: 1"></a-entity>
+    <a-entity id="marker3" mindar-image-target="targetIndex: 2"></a-entity>
   </a-scene>
 
   <script>
-    // Переменные: какой объект сейчас на экране и где начался жест
+    // Переменные: подставка, последний найденный маркер, его объект и панель, начало жеста пальцами
+    let holder = document.getElementById("holder");
+    let activeMarker = null;
     let model = null;
+    let info = document.getElementById("info0");
     let lastX, lastY, startDistance, startScale;
 
-    // Маркер найден — показываем его панель и запоминаем его объект, маркер потерян — прячем панель
+    // Маркер найден: прячем прошлый объект и панель, показываем объект и панель этого маркера
     for (let i = 1; i <= 3; i++) {
       let marker = document.getElementById("marker" + i);
-      let info = document.getElementById("info" + i);
       marker.addEventListener("targetFound", function () {
-        info.style.display = "block";
+        if (model != null) model.object3D.visible = false;
+        info.style.display = "none";
+        activeMarker = marker;
         model = document.getElementById("model" + i);
+        info = document.getElementById("info" + i);
+        model.object3D.visible = true;
+        info.style.display = "block";
       });
-      marker.addEventListener("targetLost", function () { info.style.display = "none"; });
     }
+
+    // Положение подставки задаём сами, поэтому выключаем его автоматический пересчёт
+    holder.object3D.matrixAutoUpdate = false;
+
+    // Каждый кадр: пока маркер виден, ставим подставку туда же, где он; маркер пропал — подставка стоит на месте
+    function followMarker() {
+      if (activeMarker != null && activeMarker.object3D.visible) {
+        holder.object3D.matrix.copy(activeMarker.object3D.matrix);
+      }
+      requestAnimationFrame(followMarker);
+    }
+    followMarker();
 
     // Расстояние между двумя пальцами (по теореме Пифагора)
     function fingersDistance(e) {
